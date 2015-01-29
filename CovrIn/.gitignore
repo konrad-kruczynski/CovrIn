@@ -1,0 +1,14 @@
+#temp
+*~
+
+#bin
+bin
+lib
+obj
+
+#ide
+*.pidb
+*.userprefs
+
+#packages
+packages
