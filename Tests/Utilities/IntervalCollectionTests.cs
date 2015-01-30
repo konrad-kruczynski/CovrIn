@@ -97,7 +97,8 @@ namespace CovrIn.Tests.Utilities
         {
             foreach(var interval in intervalsToAdd)
             {
-                if(!intervalCollection.DivideIfNecessary(interval.Start))
+                int unused;
+                if(!intervalCollection.DivideIfNecessary(interval.Start, out unused))
                 {
                     intervalCollection.Insert(interval.Start, interval.Length);
                 }

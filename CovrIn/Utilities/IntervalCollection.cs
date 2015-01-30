@@ -10,11 +10,12 @@ namespace CovrIn.Utilities
             intervals = new List<Interval>();
         }
 
-        public bool DivideIfNecessary(int offset)
+        public bool DivideIfNecessary(int offset, out int nextIntervalStart)
         {
             var index = intervals.BinarySearch(new Interval(offset));
             if(index == -1)
             {
+                nextIntervalStart = intervals.Count > 0 ? intervals[0].Start : -1;
                 return false;
             }
             if(index < 0)
@@ -22,6 +23,8 @@ namespace CovrIn.Utilities
                 index = (~index) - 1;
                 if(offset >= intervals[index].End)
                 {
+                    index++;
+                    nextIntervalStart = index == intervals.Count ? -1 : intervals[index].Start;
                     return false;
                 }
             }
@@ -31,6 +34,7 @@ namespace CovrIn.Utilities
             intervals.RemoveAt(index);
             Insert(left);
             Insert(right);
+            nextIntervalStart = -1;
             return true;
         }
 

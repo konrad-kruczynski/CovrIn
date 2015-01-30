@@ -48,20 +48,28 @@ namespace CovrIn
 
         private void AnalyzeBlockFrom(MethodDefinition method, Instruction instruction, IntervalCollection methodBlocks)
         {
+            int nextIntervalStart;
+
             var startingOffset = instruction.Offset;
             // if our entry point can be found in some existing block
             // we have to divide that block
-            if(methodBlocks.DivideIfNecessary(startingOffset))
+            if(methodBlocks.DivideIfNecessary(startingOffset, out nextIntervalStart))
             {
                 return;
             }
-			
-            while(NextInstructionShouldBeReached(instruction.OpCode.FlowControl))
+            if(nextIntervalStart == -1)
+            {
+                nextIntervalStart = int.MaxValue;
+            }
+
+            while(NextInstructionShouldBeReached(instruction.OpCode.FlowControl)
+                && (instruction.Offset + instruction.GetSize()) <= nextIntervalStart)
             {
                 instruction = instruction.Next;
             }
 
-            methodBlocks.Insert(startingOffset, instruction.Offset - startingOffset + instruction.GetSize());
+            var instructionSize = instruction.GetSize();
+            methodBlocks.Insert(startingOffset, instruction.Offset - startingOffset + instructionSize);
 
             switch(instruction.OpCode.FlowControl)
             {
@@ -81,7 +89,8 @@ namespace CovrIn
                 throw new NotImplementedException();
             case FlowControl.Call:
             case FlowControl.Next:
-                throw new InvalidOperationException("Internal error. Should not reach here.");
+                // we've reached here due to the nextIntervalStart that finished our scan prematurely
+                return;
             }
         }
 
