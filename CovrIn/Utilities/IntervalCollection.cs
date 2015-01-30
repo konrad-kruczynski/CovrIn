@@ -62,9 +62,7 @@ namespace CovrIn.Utilities
             {
                 return;
             }
-            // TODO: prevent overlapping
             intervals.Add(interval);
-            // TODO: insertion sort maybe?
             intervals.Sort();
         }
 
