@@ -62,8 +62,17 @@ namespace CovrIn.Utilities
             {
                 return;
             }
-            intervals.Add(interval);
-            intervals.Sort();
+
+            var insertAt = 0;
+            while(insertAt < intervals.Count)
+            {
+                if(intervals[insertAt].Start > interval.Start)
+                {
+                    break;
+                }
+                insertAt++;
+            }
+            intervals.Insert(insertAt, interval);
         }
 
         private readonly List<Interval> intervals;
