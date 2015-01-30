@@ -72,6 +72,20 @@ namespace CovrIn.Tests.Utilities
             AddIntervals(new []{ new Interval(intervalStart, 3) });
         }
 
+        [Test]
+        public void ShouldSortIntervals()
+        {
+            intervalCollection.Insert(100, 1);
+            intervalCollection.Insert(80, 1);
+            intervalCollection.Insert(90, 1);
+            intervalCollection.Insert(70, 1);
+            intervalCollection.Insert(50, 1);
+
+            var originalOrder = intervalCollection.ToArray();
+            var sortedOrder = originalOrder.OrderBy(x => x.Start).ToArray();
+            CollectionAssert.AreEqual(sortedOrder, originalOrder);
+        }
+
         [SetUp]
         public void TestSetUp()
         {
