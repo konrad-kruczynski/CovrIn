@@ -72,6 +72,11 @@ namespace CovrIn.Utilities
                 }
                 insertAt++;
             }
+            if((insertAt < intervals.Count && intervals[insertAt].Start < interval.End)
+               || (insertAt > 0 && intervals[insertAt - 1].End > interval.Start))
+            {
+                throw new ArgumentException("Intervals cannot overlap.");
+            }
             intervals.Insert(insertAt, interval);
         }
 

@@ -64,12 +64,12 @@ namespace CovrIn.Tests.Utilities
         /// Uses 3-long intervals to cause exceptions.
         /// </summary>
         /// <param name="intervalStart">Symbol beginnings.</param>
-        [Test, Ignore]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
         public void ShouldNotOverlapIntervals(
             [Values(1, 12, 21, 23, 36, 39, 47, 58)] int intervalStart)
         {
-            AddIntervals(new []{ new Interval(intervalStart, 3) });
+            intervalCollection.Insert(intervalStart, 3);
         }
 
         [Test]
