@@ -66,6 +66,10 @@ namespace CovrIn
                 && (instruction.Offset + instruction.GetSize()) < nextIntervalStart)
             {
                 instruction = instruction.Next;
+                if(instruction == null)
+                {
+                    throw new InvalidOperationException("Invalid IL code.");
+                }
             }
 
             var instructionSize = instruction.GetSize();
