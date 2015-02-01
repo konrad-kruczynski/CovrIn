@@ -79,7 +79,7 @@ namespace CovrIn.Tests.Utilities
             intervalCollection.Insert(80, 1);
             intervalCollection.Insert(90, 1);
             intervalCollection.Insert(70, 1);
-            intervalCollection.Insert(50, 1);
+            intervalCollection.Insert(60, 1);
 
             var originalOrder = intervalCollection.ToArray();
             var sortedOrder = originalOrder.OrderBy(x => x.Start).ToArray();
