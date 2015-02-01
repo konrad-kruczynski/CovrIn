@@ -63,7 +63,7 @@ namespace CovrIn
             }
 
             while(NextInstructionShouldBeReached(instruction.OpCode.FlowControl)
-                && (instruction.Offset + instruction.GetSize()) <= nextIntervalStart)
+                && (instruction.Offset + instruction.GetSize()) < nextIntervalStart)
             {
                 instruction = instruction.Next;
             }
