@@ -62,7 +62,7 @@ namespace CovrIn
                 nextIntervalStart = int.MaxValue;
             }
 
-            while(NextInstructionShouldBeReached(instruction.OpCode.FlowControl)
+            while(NextInstructionShouldBeReached(instruction)
                 && (instruction.Offset + instruction.GetSize()) < nextIntervalStart)
             {
                 instruction = instruction.Next;
@@ -98,9 +98,12 @@ namespace CovrIn
             }
         }
 
-        private static bool NextInstructionShouldBeReached(FlowControl flowControl)
+        private static bool NextInstructionShouldBeReached(Instruction instruction)
         {
-            return flowControl == FlowControl.Call || flowControl == FlowControl.Next;
+            // we effectively treat unconditional jump to next instruction as nop
+            return instruction.OpCode.FlowControl == FlowControl.Call || instruction.OpCode.FlowControl == FlowControl.Next
+                || (instruction.OpCode.FlowControl == FlowControl.Branch &&
+                    instruction.Next.Offset == ((Instruction)instruction.Operand).Offset);
         }
 
         private long nextBlockId;
