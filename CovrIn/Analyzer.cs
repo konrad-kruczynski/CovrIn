@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CovrIn.Description;
 using Mono.Cecil.Cil;
 using CovrIn.Utilities;
+using System.Linq;
 
 namespace CovrIn
 {
@@ -36,8 +37,8 @@ namespace CovrIn
             {
                 AnalyzeType(innerType);
             }
-            // we're only interested in methods
-            foreach(var method in type.Methods)
+            // we're only interested in methods that are not abstract
+            foreach(var method in type.Methods.Where(x => x.HasBody))
             {
                 var intervalCollection = new IntervalCollection();
                 AnalyzeBlockFrom(method, method.Body.Instructions[0], intervalCollection);
@@ -86,7 +87,20 @@ namespace CovrIn
                 AnalyzeBlockFrom(method, ((Instruction)instruction.Operand), methodBlocks);
                 break;
             case FlowControl.Cond_Branch:
-                AnalyzeBlockFrom(method, ((Instruction)instruction.Operand), methodBlocks);
+                var operandAsInstruction = instruction.Operand as Instruction;
+                var operandAsInstructionArray = instruction.Operand as Instruction[];
+
+                if(operandAsInstruction != null)
+                {
+                    AnalyzeBlockFrom(method, operandAsInstruction, methodBlocks);
+                }
+                else if(operandAsInstructionArray != null)
+                {
+                    foreach(var operandInstruction in operandAsInstructionArray)
+                    {
+                        AnalyzeBlockFrom(method, operandInstruction, methodBlocks);
+                    }
+                }
                 AnalyzeBlockFrom(method, instruction.Next, methodBlocks);
                 break;
             case FlowControl.Break:
