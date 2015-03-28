@@ -1,6 +1,7 @@
 ﻿using System;
 using CommandLine;
 using CommandLine.Text;
+using System.Collections.Generic;
 
 namespace CovrIn.Runner
 {
@@ -12,11 +13,14 @@ namespace CovrIn.Runner
         [Option('a', "analysisFile", DefaultValue = "covrin.analysis", HelpText = "File name of the output analysis file.")]
         public string Analysis { get; set; }
 
-        [Option('i', "inputFile", Required = true, HelpText = "File name of the input assembly.")]
-        public string Input { get; set; }
-
         [Option('c', "console", DefaultValue = false, HelpText = "Enable console output.")]
         public bool Console { get; set; }
+
+        [Option('s', "settingsFile", DefaultValue = "covrin.settings", HelpText = "File name forgenerated  settings file.")]
+        public string SettingsFile { get; set; }
+
+        [ValueList(typeof(List<string>))]
+        public IList<string> InputFiles { get; set; }
 
         [ParserState]
         public IParserState LastParserState { get; set; }
@@ -32,10 +36,9 @@ namespace CovrIn.Runner
                 AddDashesToOption = true
             };
             help.AddPreOptionsLine("");
-            help.AddPreOptionsLine("Usage: Runner.exe -i InputFile [-o OutputFile] [-a AnalysisFile]");
+            help.AddPreOptionsLine("Usage: Runner.exe [-o OutputDirectory] [-a AnalysisFileName] [-s SettingsFileName] AssemblyFileOrDirectory...");
             help.AddOptions(this);
-            return help;
-        
+            return help;        
         }
     }
 

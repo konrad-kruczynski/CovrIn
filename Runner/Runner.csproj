@@ -81,4 +81,9 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <EmbeddedResource Include="default.covrin.settings">
+      <LogicalName>default.covrin.settings</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>
