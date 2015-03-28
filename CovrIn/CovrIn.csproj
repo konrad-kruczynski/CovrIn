@@ -54,6 +54,7 @@
     <Compile Include="Description\AssemblyEntry.cs" />
     <Compile Include="Utilities\Interval.cs" />
     <Compile Include="Utilities\IntervalCollection.cs" />
+    <Compile Include="Decorator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

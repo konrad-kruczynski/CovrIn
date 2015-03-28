@@ -24,7 +24,12 @@ namespace CovrIn.Runner
 
             var analyzer = new Analyzer();
             analyzer.Analyze(assembly);
+
             var blocks = analyzer.GetBlocks();
+
+            var decorator = new Decorator(blocks);
+            decorator.Decorate(assembly, Path.Combine(options.OutputDirectory ?? "build", options.Input));
+
             if(options.Console)
             {
                 foreach(var block in blocks)
