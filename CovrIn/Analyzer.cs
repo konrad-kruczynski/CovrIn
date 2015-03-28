@@ -33,6 +33,10 @@ namespace CovrIn
 
         private void AnalyzeType(TypeDefinition type)
         {
+            foreach(var innerType in type.NestedTypes)
+            {
+                AnalyzeType(innerType);
+            }
             // we're only interested in methods
             foreach(var method in type.Methods)
             {
