@@ -10,6 +10,11 @@ namespace CovrIn.Description
         }
 
         public string Name { get; private set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
 
