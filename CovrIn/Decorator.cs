@@ -16,7 +16,7 @@ namespace CovrIn
             this.blockEntries = blockEntries;        
         }
 
-        public void Decorate(AssemblyDefinition assembly, string outputFileName)
+        public AssemblyDefinition Decorate(AssemblyDefinition assembly)
         {
             var tokensToMethods = assembly.Modules.SelectMany(x => x.Types).SelectMany(x => x.Methods).ToDictionary(x => x.MetadataToken.ToInt32());
 
@@ -27,7 +27,7 @@ namespace CovrIn
                 DecorateModule(assembly, tokensToMethods, blocksInModule);
             }
 
-            assembly.Write(outputFileName);
+            return assembly;
         }
 
         private void DecorateModule(AssemblyDefinition assembly, Dictionary<int, MethodDefinition> tokensToMethods, IEnumerable<KeyValuePair<long, BlockEntry>> blocks)
