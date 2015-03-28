@@ -2,7 +2,7 @@
 using Antmicro.Migrant;
 using System.IO;
 
-namespace CovrInWriter
+namespace CovrIn.Writer
 {
     public static class Writer
     {

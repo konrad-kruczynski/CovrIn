@@ -4,16 +4,19 @@ namespace CovrIn.Description
 {
     public sealed class BlockEntry
     {
-        public BlockEntry(AssemblyEntry assembly, string module, string method, int startingILOffset, int length)
+        public BlockEntry(AssemblyEntry assembly, string module, string method, int startingILOffset, int length, int token)
         {
             Assembly = assembly;
             Module = module;
             Method = method;
             StartingILOffset = startingILOffset;
             Length = length;
+            Token = token;
         }
 
         public AssemblyEntry Assembly { get; private set; }
+
+        public int Token { get; private set; }
 
         public string Module { get; private set; }
 

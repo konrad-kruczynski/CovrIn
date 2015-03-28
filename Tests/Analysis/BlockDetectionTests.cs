@@ -2,9 +2,9 @@
 using NUnit.Framework;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
-using System.IO;
 using System.Collections.Generic;
 using CovrIn.Description;
+using System.Linq;
 
 namespace CovrIn.Tests.Analysis
 {
@@ -124,12 +124,10 @@ namespace CovrIn.Tests.Analysis
             }
             type.Methods.Add(method);
             assembly.Modules[0].Types.Add(type);
-            var tmpFile = Path.GetTempFileName();
-            assembly.Write(tmpFile);
+
             var analyzer = new Analyzer();
-            analyzer.Analyze(tmpFile);
+            analyzer.Analyze(assembly);
             var ret = analyzer.GetBlocks();
-            File.Delete(tmpFile);
             return ret;
         }
     }

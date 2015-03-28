@@ -2,6 +2,7 @@
 using CommandLine;
 using System.IO;
 using Antmicro.Migrant;
+using Mono.Cecil;
 
 namespace CovrIn.Runner
 {
@@ -18,8 +19,11 @@ namespace CovrIn.Runner
             {
                 Console.WriteLine("Invalid input file name: {0}.", options.Input);
             }
+
+            var assembly = AssemblyDefinition.ReadAssembly(options.Input);
+
             var analyzer = new Analyzer();
-            analyzer.Analyze(options.Input);
+            analyzer.Analyze(assembly);
             var blocks = analyzer.GetBlocks();
             if(options.Console)
             {

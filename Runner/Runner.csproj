@@ -37,6 +37,18 @@
     <Reference Include="Migrant">
       <HintPath>..\packages\Migrant.0.9.4\lib\net40\Migrant.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\packages\Mono.Cecil.0.9.5.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -48,6 +60,10 @@
     <ProjectReference Include="..\CovrIn\CovrIn.csproj">
       <Project>{2D42E8D4-0D07-4FD7-A5E9-BB8FAFA72095}</Project>
       <Name>CovrIn</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Writer\Writer.csproj">
+      <Project>{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}</Project>
+      <Name>Writer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

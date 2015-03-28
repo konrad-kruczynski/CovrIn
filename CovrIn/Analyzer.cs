@@ -14,9 +14,8 @@ namespace CovrIn
             blocks = new Dictionary<long, BlockEntry>();
         }
 
-        public void Analyze(string assemblyPath)
-        {
-            var assembly = AssemblyDefinition.ReadAssembly(assemblyPath);
+        public void Analyze(AssemblyDefinition assembly)
+        {            
             foreach(var module in assembly.Modules)
             {
                 foreach(var type in module.Types)
@@ -45,7 +44,7 @@ namespace CovrIn
                 foreach(var interval in intervalCollection)
                 {
                     blocks.Add(nextBlockId++, new BlockEntry(new AssemblyEntry(method.Module.Assembly.FullName),
-                        method.Module.ToString(), method.ToString(), interval.Start, interval.Length));
+                        method.Module.ToString(), method.ToString(), interval.Start, interval.Length, method.MetadataToken.ToInt32()));
                 }
             }
         }
@@ -53,7 +52,6 @@ namespace CovrIn
         private void AnalyzeBlockFrom(MethodDefinition method, Instruction instruction, IntervalCollection methodBlocks)
         {
             int nextIntervalStart;
-
             var startingOffset = instruction.Offset;
             // if our entry point can be found in some existing block
             // we have to divide that block
