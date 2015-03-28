@@ -18,7 +18,7 @@ namespace CovrIn
 
         public AssemblyDefinition Decorate(AssemblyDefinition assembly)
         {
-            var tokensToMethods = assembly.Modules.SelectMany(x => x.Types).SelectMany(x => x.Methods).ToDictionary(x => x.MetadataToken.ToInt32());
+            var tokensToMethods = assembly.Modules.SelectMany(x => ExtractTypesAndNestedTypes(x.Types)).SelectMany(x => x.Methods).ToDictionary(x => x.MetadataToken.ToInt32());
 
             var blocksInAssembly = blockEntries.Where(x => x.Value.Assembly.Name == assembly.FullName);
                         
@@ -57,6 +57,20 @@ namespace CovrIn
                         Instruction.Create(OpCodes.Call, writeMethod));
                 }
             }
+        }
+
+        private IEnumerable<TypeDefinition> ExtractTypesAndNestedTypes(IEnumerable<TypeDefinition> types)
+        {
+            var result = new List<TypeDefinition>();
+            if(types != null && types.Any())
+            {
+                result.AddRange(types);
+                foreach(var type in types)
+                {
+                    result.AddRange(ExtractTypesAndNestedTypes(type.NestedTypes));
+                }
+            }
+            return result;
         }
 
         private static MethodInfo GetMethodInfo(Expression<Action> expression)
