@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovrIn", "CovrIn\CovrIn.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{6C562A70-88EA-4362-AE6B-BDDBFF9923AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{D518A3A2-55F0-4C57-BCC5-F6D6FFE6977E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Writer", "Writer\Writer.csproj", "{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,6 +23,14 @@ Global
 		{6C562A70-88EA-4362-AE6B-BDDBFF9923AB}.Debug|x86.Build.0 = Debug|Any CPU
 		{6C562A70-88EA-4362-AE6B-BDDBFF9923AB}.Release|x86.ActiveCfg = Release|Any CPU
 		{6C562A70-88EA-4362-AE6B-BDDBFF9923AB}.Release|x86.Build.0 = Release|Any CPU
+		{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}.Debug|x86.Build.0 = Debug|Any CPU
+		{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}.Release|x86.ActiveCfg = Release|Any CPU
+		{ADAEAE66-A6DF-4235-B7D8-CCBE4E8CC15A}.Release|x86.Build.0 = Release|Any CPU
+		{D518A3A2-55F0-4C57-BCC5-F6D6FFE6977E}.Debug|x86.ActiveCfg = Debug|x86
+		{D518A3A2-55F0-4C57-BCC5-F6D6FFE6977E}.Debug|x86.Build.0 = Debug|x86
+		{D518A3A2-55F0-4C57-BCC5-F6D6FFE6977E}.Release|x86.ActiveCfg = Release|x86
+		{D518A3A2-55F0-4C57-BCC5-F6D6FFE6977E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
