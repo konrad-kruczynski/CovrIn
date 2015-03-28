@@ -5,6 +5,7 @@ using Antmicro.Migrant;
 using Mono.Cecil;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 
 namespace CovrIn.Runner
 {
@@ -29,15 +30,11 @@ namespace CovrIn.Runner
             {
                 if(File.Exists(inputElement))
                 {
-                    var attributes = File.GetAttributes(inputElement);
-                    if((attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                    {
-                        filesToAnalyze.AddRange(LoadFilesFromDirectory(inputElement));
-                    }
-                    else
-                    {
-                        filesToAnalyze.Add(inputElement);
-                    }
+                    filesToAnalyze.Add(inputElement);
+                }
+                else if(Directory.Exists(inputElement))
+                {
+                    filesToAnalyze.AddRange(LoadFilesFromDirectory(inputElement));
                 }
                 else
                 {
@@ -48,7 +45,6 @@ namespace CovrIn.Runner
             }
 
             var outputDirectory = PrepareOutputDirectory(options.OutputDirectory, options.SettingsFile);           
-
 
             var serializer = new Serializer();
             using(var analysisFileStream = new FileStream(Path.Combine(outputDirectory.FullName, options.Analysis), FileMode.Create))
@@ -67,7 +63,9 @@ namespace CovrIn.Runner
 
                         var decorator = new Decorator(blocks);
                         var decoratedAssembly = decorator.Decorate(assembly);
-                        decoratedAssembly.Write(Path.Combine(outputDirectory.FullName, inputFile));
+                        var assemblyTargetPath = Path.Combine(outputDirectory.FullName, inputFile);
+                        EnsurePathExists(assemblyTargetPath);
+                        decoratedAssembly.Write(assemblyTargetPath);
             
                         if(options.Console)
                         {
@@ -79,6 +77,11 @@ namespace CovrIn.Runner
                     }
                 }
             }
+        }
+
+        private static void EnsurePathExists(string assemblyTargetPath)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(assemblyTargetPath));
         }
 
         private static IEnumerable<string> LoadFilesFromDirectory(string inputElement)
