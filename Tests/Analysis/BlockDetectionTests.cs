@@ -113,6 +113,21 @@ namespace CovrIn.Tests.Analysis
             Assert.AreEqual(4, blocks.Count);
         }
 
+        private void VerifyAnalysisResults(IEnumerable<BlockEntry> blocks, IEnumerable<Instruction> instructions, params int[] boundaries)
+        {
+            var i = 0;
+            var pairs = boundaries.GroupBy(x => i++ / 2).Select(x=>x.ToArray()).ToList();
+            Assert.AreEqual(blocks.Count(), pairs.Count());
+
+            var blocksSorted = blocks.OrderBy(x => x.StartingILOffset).ToArray();
+
+            for(i = 0; i < pairs.Count(); ++i)
+            {
+                Assert.AreEqual(pairs[i][0], blocksSorted[i].StartingILOffset);
+                Assert.AreEqual(pairs[i][1], blocksSorted[i].StartingILOffset + blocksSorted[i].Length);
+            }
+        }
+
         private IReadOnlyDictionary<long, BlockEntry> CreateAndAnalyzeAssembly(params Instruction[] instructions)
         {
             var assembly = AssemblyDefinition.CreateAssembly(new AssemblyNameDefinition("CovrInTest", new Version(1, 0, 0, 0)), "module", ModuleKind.Dll);
