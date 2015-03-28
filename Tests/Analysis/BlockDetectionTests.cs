@@ -37,7 +37,7 @@ namespace CovrIn.Tests.Analysis
             Assert.AreEqual(1, blocks.Count);
         }
 
-        [Test, Ignore]
+        [Test]
         public void ShouldDetectOneBlockInFakeJumps()
         {
             var ret = Instruction.Create(OpCodes.Ret);
