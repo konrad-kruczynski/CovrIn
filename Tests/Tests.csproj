@@ -55,6 +55,7 @@
   </ProjectExtensions>
   <ItemGroup>
     <Compile Include="Utilities\IntervalCollectionTests.cs" />
+    <Compile Include="Analysis\BlockDetectionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CovrIn\CovrIn.csproj">
