@@ -2,6 +2,7 @@
 using Mono.Cecil;
 using System.Collections.Generic;
 using CovrIn.Utilities;
+using System.Linq;
 
 namespace CovrIn.Description
 {
@@ -37,8 +38,10 @@ namespace CovrIn.Description
 
         public override string ToString()
         {
+            var reconstructedNamespace = Namespace.Skip(1).Aggregate(Namespace.First().Name, (left, right) => 
+                left + (right.Type == NamespaceElementType.Normal ? '.' : '+') + right.Name);
             return string.Format("[BlockEntry: Assembly={0}, Module={1}, Method={2}, ILOffset=<0x{3:X}, 0x{4:X}>]",
-                Assembly, Module, Method, StartingILOffset, StartingILOffset + Length);
+                Assembly, Module, reconstructedNamespace + "::" + Method, StartingILOffset, StartingILOffset + Length);
         }
     }
 }
