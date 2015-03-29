@@ -15,21 +15,21 @@ namespace CovrIn.Utilities
             var lastIndex = 0;
             while(lastIndex < namespaceAsString.Length)
             {
-                var dot = namespaceAsString.IndexOf('.', lastIndex);
-                var slash = namespaceAsString.IndexOf('/', lastIndex);
-                Minus1ToMaxInt(ref dot);
-                Minus1ToMaxInt(ref slash);
+                var dotPosition = namespaceAsString.IndexOf('.', lastIndex);
+                var slashPosition = namespaceAsString.IndexOf('/', lastIndex);
+                Minus1ToMaxInt(ref dotPosition);
+                Minus1ToMaxInt(ref slashPosition);
                 var elementType = nextIsNormal ? NamespaceElementType.Normal : NamespaceElementType.Nested;
                 var startIndex = lastIndex;
-                if(dot < slash)
+                if(dotPosition < slashPosition)
                 {
                     nextIsNormal = true;
-                    lastIndex = dot;
+                    lastIndex = dotPosition;
                 }
-                else if(slash < dot)
+                else if(slashPosition < dotPosition)
                 {
                     nextIsNormal = false;
-                    lastIndex = slash;
+                    lastIndex = slashPosition;
                 }
                 else
                 {
