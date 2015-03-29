@@ -7,7 +7,7 @@ namespace CovrIn.Runner
 {
     internal class Options
     {
-        [Option('o', "outputDirectory", DefaultValue = "build", HelpText = "Directory name for output binaries.")]
+        [Option('o', "outputDirectory", DefaultValue = "covrin.output", HelpText = "Directory name for output binaries.")]
         public string OutputDirectory { get; set; }
 
         [Option('a', "analysisFile", DefaultValue = "covrin.analysis", HelpText = "File name of the output analysis file.")]
