@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Utilities\IntervalCollectionTests.cs" />
     <Compile Include="Analysis\BlockDetectionTests.cs" />
+    <Compile Include="Utilities\NamespaceTokenizerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CovrIn\CovrIn.csproj">
