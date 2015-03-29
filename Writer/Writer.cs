@@ -1,6 +1,7 @@
 ﻿using System;
 using Antmicro.Migrant;
 using System.IO;
+using CovrIn.Writer.Utilities;
 
 namespace CovrIn.Writer
 {
@@ -8,20 +9,28 @@ namespace CovrIn.Writer
     {
         static Writer()
         {
-            var filename = "covrin.report.log"; //TODO: Add option
-            var fileMode = FileMode.Append; //TODO: Add option
+            var filename = SimpleIniParser.ParseString(SettingsFileName, "traceFileName", DefaultOutputName);
+            var fileMode = SimpleIniParser.ParseBool(SettingsFileName, "appendResults", true) ? FileMode.Append : FileMode.Create;
             fileStream = File.Open(filename, fileMode);
             writer = new PrimitiveWriter(fileStream, false);
+            alwaysFlush = SimpleIniParser.ParseBool("covrin.settings", "alwaysFlush", false);
         }
 
         public static void Write(long blockId)
         {
             writer.Write(blockId);
-            //TODO: Add option to flush
+            if(alwaysFlush)
+            {
+                fileStream.Flush();
+            }
         }
 
         private readonly static FileStream fileStream;
         private readonly static PrimitiveWriter writer;
+        private readonly static bool alwaysFlush;
+
+        private const string SettingsFileName = "covrin.settings";
+        private const string DefaultOutputName = "covrin.report.log";
     }
 }
 
