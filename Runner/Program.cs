@@ -44,7 +44,7 @@ namespace CovrIn.Runner
                 }
             }
 
-            var outputDirectory = PrepareOutputDirectory(options.OutputDirectory, options.SettingsFile);           
+            var outputDirectory = PrepareOutputDirectory(options.OutputDirectory);           
 
             var serializer = new Serializer();
             using(var analysisFileStream = new FileStream(Path.Combine(outputDirectory.FullName, options.Analysis), FileMode.Create))
@@ -103,7 +103,7 @@ namespace CovrIn.Runner
             return result;
         }
 
-        private static DirectoryInfo PrepareOutputDirectory(string outputDirectory, string settingsFileName)
+        private static DirectoryInfo PrepareOutputDirectory(string outputDirectory)
         {
             var directory = Directory.CreateDirectory(outputDirectory);
 
@@ -115,7 +115,7 @@ namespace CovrIn.Runner
             var migrantFileName = Path.GetFileName(migrantLocation);
             File.Copy(migrantLocation, Path.Combine(directory.FullName, migrantFileName), true);
 
-            var settingsFile = Path.Combine(directory.FullName, settingsFileName);
+            var settingsFile = Path.Combine(directory.FullName, SettingsFileName);
             if(!File.Exists(settingsFile))
             {
                 using(var resource = Assembly.GetExecutingAssembly().GetManifestResourceStream(DefaultSettingsResource))
@@ -130,6 +130,7 @@ namespace CovrIn.Runner
             return directory;
         }
 
+        private const string SettingsFileName = "covrin.settings";
         private const string DefaultSettingsResource = "default.covrin.settings";
     }
 }

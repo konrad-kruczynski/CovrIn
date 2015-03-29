@@ -16,9 +16,6 @@ namespace CovrIn.Runner
         [Option('c', "console", DefaultValue = false, HelpText = "Enable console output.")]
         public bool Console { get; set; }
 
-        [Option('s', "settingsFile", DefaultValue = "covrin.settings", HelpText = "File name forgenerated  settings file.")]
-        public string SettingsFile { get; set; }
-
         [ValueList(typeof(List<string>))]
         public IList<string> InputFiles { get; set; }
 
@@ -36,7 +33,7 @@ namespace CovrIn.Runner
                 AddDashesToOption = true
             };
             help.AddPreOptionsLine("");
-            help.AddPreOptionsLine("Usage: Runner.exe [-o OutputDirectory] [-a AnalysisFileName] [-s SettingsFileName] AssemblyFileOrDirectory...");
+            help.AddPreOptionsLine("Usage: Runner.exe [-o OutputDirectory] [-a AnalysisFileName] AssemblyFileOrDirectory...");
             help.AddOptions(this);
             return help;        
         }
