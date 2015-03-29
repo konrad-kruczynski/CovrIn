@@ -103,6 +103,8 @@ namespace CovrIn.Runner
             return result;
         }
 
+        ///Creates the output directory if it does not exist. Referenced libraries are always overwritten.
+        ///Output files are always overwritten. Settings file is preserved if it already exists.
         private static DirectoryInfo PrepareOutputDirectory(string outputDirectory)
         {
             var directory = Directory.CreateDirectory(outputDirectory);
