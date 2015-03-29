@@ -44,8 +44,8 @@ namespace CovrIn
                 AnalyzeBlockFrom(method, method.Body.Instructions[0], intervalCollection);
                 foreach(var interval in intervalCollection)
                 {
-                    blocks.Add(nextBlockId++, new BlockEntry(new AssemblyEntry(method.Module.Assembly.FullName),
-                        method.Module.ToString(), method.ToString(), interval.Start, interval.Length, method.MetadataToken.ToInt32()));
+                    blocks.Add(nextBlockId++, new BlockEntry(new AssemblyEntry(method.Module.Assembly),
+                        method.Module, method, interval.Start, interval.Length, method.MetadataToken.ToInt32()));
                 }
             }
         }

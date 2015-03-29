@@ -1,14 +1,19 @@
 ﻿using System;
+using Mono.Cecil;
+using System.Collections.Generic;
+using CovrIn.Utilities;
 
 namespace CovrIn.Description
 {
     public sealed class BlockEntry
     {
-        public BlockEntry(AssemblyEntry assembly, string module, string method, int startingILOffset, int length, int token)
+        public BlockEntry(AssemblyEntry assembly, ModuleDefinition module, MethodDefinition method, int startingILOffset, int length, int token)
         {
             Assembly = assembly;
-            Module = module;
-            Method = method;
+            Module = module.ToString();
+            Namespace = NamespaceTokenizer.Tokenize(method.DeclaringType.Namespace);
+            Type = method.DeclaringType.Name;
+            Method = method.Name;
             StartingILOffset = startingILOffset;
             Length = length;
             Token = token;
@@ -19,6 +24,10 @@ namespace CovrIn.Description
         public int Token { get; private set; }
 
         public string Module { get; private set; }
+
+        public IReadOnlyCollection<NamespaceElement> Namespace { get; private set; }
+
+        public string Type { get; private set; }
 
         public string Method { get; private set; }
 

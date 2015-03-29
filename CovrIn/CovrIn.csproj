@@ -55,6 +55,9 @@
     <Compile Include="Utilities\Interval.cs" />
     <Compile Include="Utilities\IntervalCollection.cs" />
     <Compile Include="Decorator.cs" />
+    <Compile Include="Description\NamespaceElement.cs" />
+    <Compile Include="Description\NamespaceElementType.cs" />
+    <Compile Include="Utilities\NamespaceTokenizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
