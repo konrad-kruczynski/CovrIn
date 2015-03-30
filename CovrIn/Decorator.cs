@@ -42,18 +42,20 @@ namespace CovrIn
 
                 var processor = method.Body.GetILProcessor();
 
-                var offsetToInstruction = method.Body.Instructions.ToDictionary(x => x.Offset);
+                var offsetToInstruction = method.Body.Instructions.ToDictionary(x => x.Offset + x.GetSize());
 
                 foreach(var block in orderedBlocks)
                 {
                     var id = block.Key;
 
-                    var firstBlockInstruction = offsetToInstruction[block.Value.StartingILOffset];
+                //    var firstBlockInstruction = offsetToInstruction[block.Value.StartingILOffset];
+                    var lastBlockInstruction = offsetToInstruction[block.Value.StartingILOffset + block.Value.Length];
                     Console.WriteLine(block.Value.StartingILOffset);
                     Console.WriteLine(block.Value.ToString());
-                    processor.InsertBefore(firstBlockInstruction,
+
+                    processor.InsertBefore(lastBlockInstruction,
                         Instruction.Create(OpCodes.Ldc_I8, id));
-                    processor.InsertBefore(firstBlockInstruction,
+                    processor.InsertBefore(lastBlockInstruction,
                         Instruction.Create(OpCodes.Call, writeMethod));
                 }
             }
