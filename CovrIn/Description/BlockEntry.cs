@@ -16,7 +16,7 @@ namespace CovrIn.Description
             Type = method.DeclaringType.Name;
             Method = method.Name;
             StartingILOffset = startingILOffset;
-            Length = length;
+            LastInstructionOffset = StartingILOffset + length;
             Token = token;
         }
 
@@ -34,14 +34,16 @@ namespace CovrIn.Description
 
         public int StartingILOffset { get; private set; }
 
-        public int Length { get; private set; }
+        public int LastInstructionOffset { get; private set; }
+
+        public int Length { get { return LastInstructionOffset - StartingILOffset; } }
 
         public override string ToString()
         {
             var reconstructedNamespace = Namespace.Skip(1).Aggregate(Namespace.First().Name, (left, right) => 
                 left + (right.Type == NamespaceElementType.Normal ? '.' : '+') + right.Name);
             return string.Format("[BlockEntry: Assembly={0}, Module={1}, Method={2}, ILOffset=<0x{3:X}, 0x{4:X}>]",
-                Assembly, Module, reconstructedNamespace + "::" + Method, StartingILOffset, StartingILOffset + Length);
+                Assembly, Module, reconstructedNamespace + "::" + Method, StartingILOffset, LastInstructionOffset);
         }
     }
 }

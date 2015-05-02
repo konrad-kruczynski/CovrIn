@@ -124,7 +124,7 @@ namespace CovrIn.Tests.Analysis
             for(i = 0; i < pairs.Count(); ++i)
             {
                 Assert.AreEqual(pairs[i][0], blocksSorted[i].StartingILOffset);
-                Assert.AreEqual(pairs[i][1], blocksSorted[i].StartingILOffset + blocksSorted[i].Length);
+                Assert.AreEqual(pairs[i][1], blocksSorted[i].LastInstructionOffset);
             }
         }
 

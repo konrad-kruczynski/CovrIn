@@ -49,7 +49,7 @@ namespace CovrIn
                     var id = block.Key;
 
                 //    var firstBlockInstruction = offsetToInstruction[block.Value.StartingILOffset];
-                    var lastBlockInstruction = offsetToInstruction[block.Value.StartingILOffset + block.Value.Length];
+                    var lastBlockInstruction = offsetToInstruction[block.Value.LastInstructionOffset];
                     Console.WriteLine(block.Value.StartingILOffset);
                     Console.WriteLine(block.Value.ToString());
 
